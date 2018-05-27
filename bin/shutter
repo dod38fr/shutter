@@ -9681,7 +9681,7 @@ else {
 
                             my $sd = Shutter::App::SimpleDialogs->new;
 
-                            my $response = $sd->dlg_warning_message( sprintf( $d->get("The image already exists in %s. Replacing it will overwrite its contents."), "'" . $new_uri->extract_dirname . "'" ), sprintf( $d->get("An image named %s already exists. Do you want to replace it?"), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, $replace_btn, undef, undef );
+                            my $response = $sd->dlg_warning_message( sprintf( $d->get("The image already exists in %s. Replacing it will overwrite its contents."), "'" . $new_uri->get_parent->get_path . "'" ), sprintf( $d->get("An image named %s already exists. Do you want to replace it?"), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, $replace_btn, undef, undef );
 
                             #rename == replace_btn was hit
                             if ( $response == 40 ) {
@@ -10913,7 +10913,7 @@ else {
                                 $target_path = $shf->utf8_decode( unescape_string( $target_uri->get_parent->get_path ) );
                             }
                             else {
-                                $target_path = $shf->utf8_decode( unescape_string( $target_uri->get_scheme . "://" . $target_uri->get_host_name . $target_uri->extract_dirname ) );
+                                $target_path = $shf->utf8_decode( unescape_string( $target_uri->get_scheme . "://" . $target_uri->get_host_name . $target_uri->get_parent->get_path ) );
                             }
 
                             #dialogs (main window != parent window)
