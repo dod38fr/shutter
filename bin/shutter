@@ -9651,8 +9651,8 @@ else {
                                 $session_screens{$key}->{'handle'}->cancel;
                             }
 
-                            my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
-                            if ( $result eq 'ok' ) {
+                            eval {
+                                my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
 
                                 &fct_update_tab( $key, undef, $new_uri, FALSE, 'block' );
 
@@ -9664,11 +9664,9 @@ else {
                                 #change window title
                                 #~ $window->set_title($session_screens{$key}->{'long'}." - ".SHUTTER_NAME);
 
-                            }
-                            else {
-
-                                my $response = $sd->dlg_error_message( sprintf( $d->get("Error while renaming the image %s."), "'" . $old_uri->get_basename . "'" ), sprintf( $d->get("There was an error renaming the image to %s."), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, undef, undef, undef, Gnome2::VFS->result_to_string($result) );
-
+                            };
+                            if($@) {
+                                my $response = $sd->dlg_error_message( sprintf( $d->get("Error while renaming the image %s."), "'" . $old_uri->get_basename . "'" ), sprintf( $d->get("There was an error renaming the image to %s."), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, undef, undef, undef, $@->message );
                             }
 
                         }
@@ -9694,8 +9692,8 @@ else {
                                     $session_screens{$key}->{'handle'}->cancel;
                                 }
 
-                                my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
-                                if ( $result eq 'ok' ) {
+                                eval {
+                                    my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
 
                                     &fct_update_tab( $key, undef, $new_uri, FALSE, 'block' );
 
@@ -9707,11 +9705,9 @@ else {
                                     #change window title
                                     #~ $window->set_title($session_screens{$key}->{'long'}." - ".SHUTTER_NAME);
 
-                                }
-                                else {
-
-                                    my $response = $sd->dlg_error_message( sprintf( $d->get("Error while renaming the image %s."), "'" . $old_uri->get_basename . "'" ), sprintf( $d->get("There was an error renaming the image to %s."), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, undef, undef, undef, Gnome2::VFS->result_to_string($result) );
-
+                                };
+                                if ($@) {
+                                    my $response = $sd->dlg_error_message( sprintf( $d->get("Error while renaming the image %s."), "'" . $old_uri->get_basename . "'" ), sprintf( $d->get("There was an error renaming the image to %s."), "'" . $new_uri->get_basename . "'" ), undef, undef, undef, undef, undef, undef, $@->message );
                                 }
 
                                 #maybe file is in session as well, need to set the handler again ;-)
