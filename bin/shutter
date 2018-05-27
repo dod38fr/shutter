@@ -9651,7 +9651,7 @@ else {
                                 $session_screens{$key}->{'handle'}->cancel;
                             }
 
-                            my $result = $old_uri->move( $new_uri, TRUE );
+                            my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
                             if ( $result eq 'ok' ) {
 
                                 &fct_update_tab( $key, undef, $new_uri, FALSE, 'block' );
@@ -9694,7 +9694,7 @@ else {
                                     $session_screens{$key}->{'handle'}->cancel;
                                 }
 
-                                my $result = $old_uri->move( $new_uri, TRUE );
+                                my $result = $old_uri->move( $new_uri, 'G_FILE_COPY_OVERWRITE' );
                                 if ( $result eq 'ok' ) {
 
                                     &fct_update_tab( $key, undef, $new_uri, FALSE, 'block' );
