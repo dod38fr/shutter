@@ -10861,7 +10861,7 @@ else {
                         #everything is fine here
                         if ( $result eq 'ok' ) {
 
-							if ( $target_uri->is_local ) {
+							if ( $target_uri->is_native ) {
 								&fct_show_status_message( 1, $file . " " . $d->get("exported") );
 
 								#show as notification
@@ -10885,7 +10885,7 @@ else {
                             $replace_btn->set_image( Gtk2::Image->new_from_stock( 'gtk-save-as', 'button' ) );
 
                             my $target_path = undef;
-                            if ( $target_uri->is_local ) {
+                            if ( $target_uri->is_native ) {
                                 $target_path = $shf->utf8_decode( unescape_string( $target_uri->get_parent->get_path ) );
                             }
                             else {
@@ -10910,7 +10910,7 @@ else {
                                 #check result again
                                 if ( $result eq 'ok' ) {
 
-									if ( $target_uri->is_local ) {
+									if ( $target_uri->is_native ) {
 										&fct_show_status_message( 1, $file . " " . $d->get("exported") );
 
 										#show as notification
@@ -11009,7 +11009,7 @@ else {
         my $sd = Shutter::App::SimpleDialogs->new;
 
         my $target_path = undef;
-        if ( $target_uri->is_local ) {
+        if ( $target_uri->is_native ) {
             $target_path = $shf->utf8_decode( unescape_string( $target_uri->get_parent->get_path ) );
         }
         else {
