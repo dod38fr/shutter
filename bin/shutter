@@ -8960,7 +8960,11 @@ else {
               if Gtk2->CHECK_VERSION( 2, 16, 0 );
             $menu_programs->append($program_item);
 
-            my $icon = $app->get_icon;
+            my $icon;
+            eval { $icon = $app->get_icon->get_names->[0]; };
+            if ($@) {
+                print "\nWARNING: Could not fetch icon name: " . $app->get_display_name . " $@\n";
+            }
             if ($icon) {
 
                 #cut image formats
