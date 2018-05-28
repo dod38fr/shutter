@@ -254,7 +254,6 @@ my $sc     = Shutter::App::Common->new( $shutter_root, $window, SHUTTER_NAME, SH
 my $shf    = Shutter::App::HelperFunctions->new($sc);
 my $so     = Shutter::App::Options->new( $sc, $shf );
 my $sdir   = Shutter::App::Directories->new();
-my $strash = Shutter::App::TrashInfo->new();
 my $sas    = Shutter::App::Autostart->new();
 my $sm     = Shutter::App::Menu->new($sc);
 my $st     = Shutter::App::Toolbar->new($sc);
