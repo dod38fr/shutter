@@ -136,6 +136,19 @@ sub escape_path_string {
     return $ret;
 }
 
+sub format_size {
+    my $size = $_[0];
+    my $suffix = "bytes";
+    foreach my $suf (qw/KB MB GB/) {
+        if($size < 1024) {
+            last;
+        };
+        $size /= 1024;
+        $suffix = $suf;
+    }
+    return sprintf("%.1f", $size) . " " . $suffix;
+}
+
 #--------------------------------------
 
 #print UTF-8 to standard output
@@ -7357,7 +7370,7 @@ else {
                 $window->set_title( $session_screens{$key}->{'long'} . " - " . SHUTTER_NAME );
             }
 
-            $status->push( 1, $session_screens{$key}->{'width'} . " x " . $session_screens{$key}->{'height'} . " " . $d->get("pixels") . "  " . $shf->utf8_decode( Gnome2::VFS->format_file_size_for_display( $session_screens{$key}->{'size'} ) ) );
+            $status->push( 1, $session_screens{$key}->{'width'} . " x " . $session_screens{$key}->{'height'} . " " . $d->get("pixels") . "  " . format_size( $session_screens{$key}->{'size'} ) );
 
             #session tab
         }
@@ -7366,7 +7379,7 @@ else {
             #change window title
             $window->set_title( $d->get("Session") . " - " . SHUTTER_NAME );
 
-            $status->push( 1, sprintf( $d->nget( "%s screenshot", "%s screenshots", scalar( keys(%session_screens) ) ), scalar( keys(%session_screens) ) ) . "  " . $shf->utf8_decode( Gnome2::VFS->format_file_size_for_display(&fct_get_total_size_of_session) ) );
+            $status->push( 1, sprintf( $d->nget( "%s screenshot", "%s screenshots", scalar( keys(%session_screens) ) ), scalar( keys(%session_screens) ) ) . "  " . format_size(&fct_get_total_size_of_session) );
 
         }
 
